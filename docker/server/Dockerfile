@@ -9,7 +9,10 @@ RUN install-php-extensions gd pdo_mysql bcmath zip intl opcache
 COPY --from=composer:2.0 /usr/bin/composer /usr/local/bin/composer
 RUN apt update 
 RUN apt install nano
-RUN pecl install apcu
+
+# install the PHP APCu extension
+RUN mkdir -p /usr/src/php/ext/apcu && curl -fsSL https://pecl.php.net/get/apcu | tar xvz -C "/usr/src/php/ext/apcu" --strip 1 && docker-php-ext-install apcu
+
 
 # initialize git
 RUN mkdir /root/.ssh/
