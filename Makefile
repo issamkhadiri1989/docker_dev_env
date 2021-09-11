@@ -1,4 +1,4 @@
-SERVER = symfony_project_2021-server
+SERVER = atelier_php8_2021-server
 
 # Use it only when want to delete all containers and images
 uninstall:
@@ -37,6 +37,12 @@ list:
 create-project:
 	composer create-project symfony/website-skeleton ./codebase
 
-# Install the project from Git
-install:
-	mkdir codebase && docker-compose up -d --build --force-recreate && docker-compose ps && git clone git@gitlab.com:dockerized1/symfony6_skeleton.git ./codebase && cd codebase && composer install
+# Installation of the project
+install: # Create the working dir + starting all containers
+	mkdir codebase && docker-compose up -d --build --force-recreate && docker-compose ps
+
+clone-project: install # Clone project from Git.
+	git clone git@gitlab.com:dockerized1/symfony6_skeleton.git ./codebase
+
+install-composer: clone-project # Run composer install
+	cd codebase && composer install
