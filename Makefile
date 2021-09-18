@@ -2,15 +2,11 @@ SERVER = atelier_php8_2021-server
 GIT = git@gitlab.com:dockerized1/symfony6_skeleton.git
 CODEBASE = ./codebase
 # Use it only when want to delete all containers and images
-uninstall:
-	docker-compose stop
-	docker container stop $$(docker container ps -aq)
+uninstall: shut-down remove-containers
 	docker container rm $$(docker container ps -aq)
 	docker system prune
 	docker image prune
 	docker network prune
-	docker-compose ps
-	rm -Rf codebase
 # Remove the base dir of the project
 remove-dir:
 	rm -Rf $(CODEBASE)
