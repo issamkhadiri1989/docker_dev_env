@@ -37,8 +37,6 @@ install: create-project-directory force-recreate list
  # Clone project from Git.
 clone-project: install
 	git clone $(GIT) $(CODEBASE)
-access-project:
-	cd $(CODEBASE)
 # Run the composer install command
 composer-install:
 	cd $(CODEBASE) && composer install
