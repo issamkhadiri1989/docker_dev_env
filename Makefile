@@ -40,5 +40,5 @@ clone-project: install
 access-project:
 	cd $(CODEBASE)
 # Run the composer install command
-composer-install: access-project
-	composer install
+composer-install:
+	cd $(CODEBASE) && composer install
