@@ -11,7 +11,7 @@ The variable `CODEBASE` should remain the same to run all containers without err
 ## uninstall
 Stops all containers. It performs prune to all containers/images and networks
 ```
-uninstall: shut-down remove-containers
+uninstall: shut-down
 	docker container rm $$(docker container ps -aq)
 	docker system prune
 	docker image prune
