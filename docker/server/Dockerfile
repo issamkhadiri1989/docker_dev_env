@@ -21,3 +21,8 @@ RUN chmod 0700 /root/.ssh && chmod 0600 /root/.ssh/id*
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan gitlab.com,172.65.251.78 >> /root/.ssh/known_hosts
 RUN echo "Host gitlab.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+
+
+
+# Install Xdebug
+RUN pecl install xdebug-3.0.1 && docker-php-ext-enable xdebug
