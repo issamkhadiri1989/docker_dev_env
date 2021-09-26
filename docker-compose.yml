@@ -11,6 +11,7 @@ services:
         container_name: '${APP_NAME}-server'
         expose:
             - "9000"
+            - "9003"
         ports:
             - '80:80'
         working_dir: /var/www/html
@@ -24,6 +25,8 @@ services:
             - db_server
         networks:
             - symfony_project_2021_net
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     db_server:
         image: mariadb:10.5.9

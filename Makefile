@@ -1,4 +1,4 @@
-SERVER = atelier_php8_2021-server
+SERVER = symfony_project_2021-server
 GIT = git@gitlab.com:dockerized1/symfony6_skeleton.git
 CODEBASE = ./codebase
 # Use it only when want to delete all containers and images
@@ -20,7 +20,7 @@ enter:
 run:
 	docker-compose up -d --no-recreate --remove-orphans
 # Stop all containers
-shut-down:
+stop:
 	docker-compose stop
 	docker container stop $$(docker container ps -aq)
 # List all containers
@@ -40,3 +40,9 @@ clone-project: install
 # Run the composer install command
 composer-install:
 	cd $(CODEBASE) && composer install
+# Run a build
+build:
+	docker-compose build
+# Start Web server
+start-server:
+	docker-compose up -d server

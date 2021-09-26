@@ -44,7 +44,7 @@ Runs all containers based on the docker-compose.yml file, It is ran with `--no-r
 run:
 	docker-compose up -d --no-recreate --remove-orphans
 ```
-## shut-down
+## shutdown
 It turns off all containers.
 ```
 shut-down:
@@ -88,4 +88,62 @@ It runs the `composer install` inside the main prject directory already set in t
 ```
 composer-install:
 	cd $(CODEBASE) && composer install
+```
+## build
+It runs a build of all containers
+```
+build:
+	docker-compose build
+```
+
+---
+# XDEBUG  CONFIGURATION
+
+## File xdebug.ini
+```
+variables_order=EGPCS
+xdebug.mode=develop,debug
+xdebug.client_port=9003
+xdebug.idekey=PHPSTORM
+xdebug.max_nesting_level = 250
+max_execution_time = 300
+xdebug.start_with_request=yes
+xdebug.log_level=1
+xdebug.client_host=host.docker.internal
+xdebug.remote_handler=dbgp
+xdebug.discover_client_host=1
+```
+
+## PHPSTORM
+```
+PHP ➝ Debug
+	Xdebug section : 
+		- Debug port: 9000,9003
+		
+		all checkboxes must be checked
+
+PHP ➝ Servers
+	🠾 Create a new server 
+		- Name  : xxx
+		- Host  : localhost
+		- Port  : 80
+		- Debugger: Xdebug
+		
+		Check the "Use path mappings" option
+		then, map the local project repository with the one  in the container
+		For exemple 
+			File/Directory : C:\htdocs\symfony_certifications\codebase
+			Absolute path on the server : /var/www/html
+			
+PHP ➝ Debug ➝ DBGp Proxy
+	IDE key : PHPSTORM
+	Host    : localhost
+	Port    : 80
+	
+	
+In the Run/Debug: Edit Configuration 
+	🠾 Add new PHP Remote Debug 
+            | Name     : remote_debugger
+            | Server   : xxx
+            | IDE key  : PHPSTORM
 ```
