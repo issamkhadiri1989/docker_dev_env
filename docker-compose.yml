@@ -21,12 +21,11 @@ services:
             - ./codebase:/var/www/html
             - ./docker/server/apache/sites-enabled:/etc/apache2/sites-enabled
             - ./docker/server/php/php.ini:/usr/local/etc/php/conf.d/extra-php-config.ini
+            - ./docker/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
         depends_on:
             - db_server
         networks:
             - symfony_project_2021_net
-        extra_hosts:
-            - "host.docker.internal:host-gateway"
 
     db_server:
         image: mariadb:10.5.9
