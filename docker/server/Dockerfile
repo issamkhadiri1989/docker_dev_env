@@ -13,7 +13,6 @@ RUN apt install nano
 # install the PHP APCu extension
 RUN mkdir -p /usr/src/php/ext/apcu && curl -fsSL https://pecl.php.net/get/apcu | tar xvz -C "/usr/src/php/ext/apcu" --strip 1 && docker-php-ext-install apcu
 
-
 # initialize git
 RUN mkdir /root/.ssh/
 COPY docker/server/ssh/* /root/.ssh/
@@ -22,5 +21,5 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan gitlab.com,172.65.251.78 >> /root/.ssh/known_hosts
 RUN echo "Host gitlab.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
-
+# Install Xdebug
 RUN pecl install xdebug-3.0.1 && docker-php-ext-enable xdebug

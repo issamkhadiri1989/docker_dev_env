@@ -2,7 +2,7 @@ SERVER = symfony_project_2021-server
 GIT = git@gitlab.com:dockerized1/symfony6_skeleton.git
 CODEBASE = ./codebase
 # Use it only when want to delete all containers and images
-uninstall: shut-down
+uninstall: stop
 	docker container rm $$(docker container ps -aq)
 	docker system prune
 	docker image prune

@@ -114,6 +114,11 @@ xdebug.remote_handler=dbgp
 xdebug.discover_client_host=1
 ```
 
+## File docker-php-ext-xdebug.ini
+```
+zend_extension=xdebug
+```
+
 ## PHPSTORM
 ```
 PHP ➝ Debug
