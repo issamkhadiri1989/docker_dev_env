@@ -1,6 +1,7 @@
-SERVER = symfony_project_2021-server
+SERVER = vip_salah_2021-server
 GIT = git@gitlab.com:dockerized1/symfony6_skeleton.git
 CODEBASE = ./codebase
+EXEC = docker exec -it $(SERVER)
 # Use it only when want to delete all containers and images
 uninstall: stop
 	docker container rm $$(docker container ps -aq)
@@ -15,7 +16,7 @@ create-project-directory:
 	mkdir $(CODEBASE)
 # Access to the PHP container
 enter:
-	docker exec -it $(SERVER) bash
+	$(EXEC) bash
 # Run without recreation
 run:
 	docker-compose up -d --no-recreate --remove-orphans
@@ -28,7 +29,7 @@ list:
 	docker-compose ps
 # Create basic project using composer
 composer-create-project:
-	composer create-project symfony/website-skeleton $(CODEBASE)
+	$(EXEC) composer create-project symfony/website-skeleton .
 # Start all containers with build and force recreate flags
 force-recreate:
 	docker-compose up -d --build --force-recreate
@@ -39,7 +40,7 @@ clone-project: install
 	git clone $(GIT) $(CODEBASE)
 # Run the composer install command
 composer-install:
-	cd $(CODEBASE) && composer install
+	cd $(CODEBASE) && $(EXEC) composer install
 # Run a build
 build:
 	docker-compose build
