@@ -96,6 +96,29 @@ build:
 	docker-compose build
 ```
 
+## run-stan
+It runs a PHPSTAN analysis for a given file/directory. To run it just tape: Make run-stan file=<file/directory path>
+```
+run-stan:
+	docker exec -it $(SERVER) vendor/bin/phpstan analyse $(file) --level=8 -c phpstan.neon
+```
+
+## run-csfixer
+It runs a CS FIXER analysis for a given file/directory. To run it just tape: Make run-csfixer file=<file/directory path>
+```
+run-csfixer:
+	docker exec -it $(SERVER) vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix $(file) --dry-run --diff --config=.php-cs-fixer.dist.php
+```
+
+
+## lf
+Restores LF file endings. USE IT ONLY IF THE gitbash has changed the endings
+```
+lf:
+	cd $(CODEBASE) && git config core.autocrlf false && git rm --cached -r . && git reset --hard
+```
+
+
 ---
 # XDEBUG  CONFIGURATION
 

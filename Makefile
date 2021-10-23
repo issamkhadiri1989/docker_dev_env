@@ -46,3 +46,15 @@ build:
 # Start Web server
 start-server:
 	docker-compose up -d server
+	
+# Performs the PHPSTAN check of a given file/directory. To use this, run make run-stanr file=<dir/file name>
+run-stan:
+	docker exec -it $(SERVER) vendor/bin/phpstan analyse $(file) --level=8 -c phpstan.neon
+
+# Performs CSFIXER check of a given file/directory. To use this, run make  run-csfixer file=<dir/file name>
+run-csfixer:
+	docker exec -it $(SERVER) vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix $(file) --dry-run --diff --config=.php-cs-fixer.dist.php
+	
+# Restore LF file ending to all files
+lf:
+	cd $(CODEBASE) && git config core.autocrlf false && git rm --cached -r . && git reset --hard
