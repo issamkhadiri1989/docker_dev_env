@@ -61,7 +61,16 @@ services:
             - db_admin_data:/var/www/html
         networks:
             - symfony_project_2021_net
-
+    
+    mailcatcher:
+        container_name: '${APP_NAME}-mailer'
+        networks:
+            - symfony_project_2021_net
+        image: yappabe/mailcatcher
+        ports:
+            - 1025:1025
+            - 1080:1080
+    
 volumes:
     db_data:
     db_admin_data:
