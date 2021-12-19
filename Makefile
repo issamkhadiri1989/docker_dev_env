@@ -18,7 +18,7 @@ create-project-directory:
 enter:
 	$(EXEC) bash
 # Run without recreation
-run:
+start:
 	docker-compose up -d --no-recreate --remove-orphans
 # Stop all containers
 stop:
