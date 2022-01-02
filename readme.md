@@ -175,3 +175,31 @@ In the Run/Debug: Edit Configuration
             | Server   : xxx
             | IDE key  : PHPSTORM
 ```
+
+## VS CODE
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes"
+            ],
+            "env": {
+                "XDEBUG_MODE": "debug,develop",
+                "XDEBUG_CONFIG": "client_port=${port},idekey=PHPSTORM"
+            },
+            "hostname": "localhost",
+            "pathMappings": {
+                "/var/www/html/": "${workspaceFolder}"
+            }
+        }
+    ]
+}
+```
