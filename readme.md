@@ -1,4 +1,4 @@
-# Make
+# Installation
 The following commands are available for the make command. 
 
 Before using them, make sure you had already configured the `SERVER` container name and `GIT` repository.  
