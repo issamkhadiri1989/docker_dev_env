@@ -1,5 +1,4 @@
-#FROM php:7.4-apache
-FROM oberd/php-8.0-apache
+FROM lavoweb/php-8.1
 
 RUN a2enmod rewrite
 RUN apt-get update && apt-get install -y git unzip zip
@@ -13,13 +12,14 @@ RUN apt install nano
 # install the PHP APCu extension
 RUN mkdir -p /usr/src/php/ext/apcu && curl -fsSL https://pecl.php.net/get/apcu | tar xvz -C "/usr/src/php/ext/apcu" --strip 1 && docker-php-ext-install apcu
 
-# initialize git
-RUN mkdir /root/.ssh/
-COPY docker/server/ssh/* /root/.ssh/
-RUN chmod 0700 /root/.ssh && chmod 0600 /root/.ssh/id*
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan gitlab.com,172.65.251.78 >> /root/.ssh/known_hosts
-RUN echo "Host gitlab.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
+# Install xsl extension
+RUN apt install -y libxslt-dev
+RUN docker-php-ext-install xsl
+
+# Cron
+RUN apt-get update && apt-get install -y cron
 
 # Install Xdebug
-RUN pecl install xdebug-3.0.1 && docker-php-ext-enable xdebug
+RUN pecl install xdebug-3.1.5 && docker-php-ext-enable xdebug
+
+EXPOSE 8585
