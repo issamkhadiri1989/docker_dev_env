@@ -1,8 +1,28 @@
 version: '3.7'
 
 services:
+    api:
+        container_name: "api"
+        build:
+            context: .
+            dockerfile: ./docker/server/Dockerfile
+        expose:
+            - "9000"
+            - "9003"
+        ports:
+            - "9898:80"
+        working_dir: /var/www/html
+        volumes:
+            - ./api:/var/www/html
+            - ./docker/server/apache/sites-enabled:/etc/apache2/sites-enabled
+            - ./docker/server/php/php.ini:/usr/local/etc/php/conf.d/extra-php-config.ini
+            - ./docker/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+        depends_on:
+            - database
+        networks:
+            - inner_net
     backend:
-        container_name: "backend_api"
+        container_name: "backend_server"
         build:
             context: .
             dockerfile: ./docker/server/Dockerfile
